@@ -29,4 +29,66 @@
 
 \section{线性回归模型}
 
+\begin{frame}{引例}
+  \begin{block}{工资与教育水平关系}
+    考查工人工资水平与其受教育关系：
+    \begin{itemize}
+      \item[a] 工资水平（每小时美元数）：用Y表示
+      \item[b] 受教育程度（受教育年数）：用X表示
+      \item[c] 非可观测因素，如工作经验、天生素质、工作时间等其他因素
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{引例}
+    \begin{block}{工资与教育水平关系}
+    \begin{itemize}
+      \item[d] 观测的数据：$\left(x_i,y_i\right),i=1,\cdots,n$ （受访人数）,
+    \end{itemize}
+    \end{block}
+    \begin{tabular}{c||c c|c||c c}
+      \hline
+      % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
+      $i$ & $x_i$ & $y_i$ & $i$ & $x_i$ & $y_i$ \\
+      \hline
+      1 & 5.3 & 1.4 & 9 & 8.5 & 3.2 \\
+      2 & 11.0 & 3.9 & 10 & 7.1 & 8.6 \\
+      3 & 9 & 6.3 & 11 & 15 & 4 \\
+      4 & 8.7 & 8.6 & 12 & 12.0 & 9.0 \\
+      5 & 10 & 12 & 13 & 29 & 12 \\
+      6 & 15.5 & 12 & 14 & 19.7 & 13.1 \\
+      7 & 21 & 16 & 15 & 15.1 & 10 \\
+      8 & 19 & 14.4 & 16 & 15.7 & 16 \\
+      \hline
+    \end{tabular}
+\end{frame}
+
+\begin{frame}{定义}
+\[ y_i = \beta_0+x_{i1}\beta_1+ \dots + x_{i,p-1}\beta_{p-1}+e_i, \ i=1,2,\dots,n\]
+
+\[\left( {\begin{array}{*{20}{c}}
+{{y_1}}\\
+{{y_2}}\\
+ \vdots \\
+{{y_n}}
+\end{array}} \right) = \left( {\begin{array}{*{20}{c}}
+1&{{x_{11}}}& \cdots &{{x_{1,p - 1}}}\\
+1&{{x_{11}}}& \cdots &{{x_{2,p - 1}}}\\
+ \vdots & \vdots &{}& \vdots \\
+1&{{x_{11}}}& \cdots &{{x_{n,p - 1}}}
+\end{array}} \right)\left( {\begin{array}{*{20}{c}}
+{{\omega _0}}\\
+{{\omega _1}}\\
+ \vdots \\
+{{\omega _{p - 1}}}
+\end{array}} \right) + \left( {\begin{array}{*{20}{c}}
+{{e_1}}\\
+{{e_2}}\\
+ \vdots \\
+{{e_{p - 1}}}
+\end{array}} \right)\]
+\end{frame}
+
+\[\bf{y}=\bf{X\beta}+\bf{e}\]
+
 \end{document} 
