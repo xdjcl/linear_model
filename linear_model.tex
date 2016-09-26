@@ -45,6 +45,8 @@
       \item[d] 观测的数据：$\left(x_i,y_i\right),i=1,\cdots,n$ （受访人数）,
     \end{itemize}
     \end{block}
+
+    \begin{center}
     \begin{tabular}{c||c c|c||c c}
       \hline
       % after \\: \hline or \cline{col1-col2} \cline{col3-col4} ...
@@ -60,6 +62,8 @@
       8 & 19 & 14.4 & 16 & 15.7 & 16 \\
       \hline
     \end{tabular}
+    \end{center}
+
 \end{frame}
 
 \begin{frame}{定义}
@@ -86,8 +90,102 @@
  \vdots \\
 {{e_{p - 1}}}
 \end{array}} \right)\]
+
+$\bf{y}=\bf{X\beta}+\bf{e}$
+
 \end{frame}
 
-\[\bf{y}=\bf{X\beta}+\bf{e}\]
+\begin{frame}
+\[ y_i = \beta_0+x_{i1}\beta_1+ \dots + x_{i,p-1}\beta_{p-1}+e_i, \ i=1,2,\dots,n\]
+\begin{itemize}
+  \item[(a)] 拟合值：$\mathop {{y_i}}\limits^ \wedge   = \mathop {{\beta _0}}\limits^ \wedge   + {x_{i1}}\mathop {{\beta _1}}\limits^ \wedge   \cdots  + {x_{i,p - 1}}{{\mathop \beta \limits^ \wedge}  _{p - 1}}$
+  \item[(b)] 残差（residual）:${\varepsilon _i} = {y_i} - {{\mathop y\limits^ \wedge}  _i} = {y_i} - \mathop {{\beta _0}}\limits^ \wedge   - {x_{i1}}\mathop {{\beta _1}}\limits^ \wedge   \cdots  + {x_{i,p - 1}}{{\mathop \beta \limits^ \wedge }_{p - 1}}$
+  \item[(c)] 残差平方和（residual sum of squares \ RSS）:$RSS \left(\beta\right) = \sum\limits_{i=1}^{n}\varepsilon_i = \sum\limits_{i=1}^{n}\left(y_i - \mathop {{y_i}}\limits^ \wedge\right) = {{{\left( {\mathop y\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)}^T}\left( {\mathop y\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)}$
+\end{itemize}
+\end{frame}
+
+\begin{frame}{参数求解}
+\begin{block}{最小二乘法：RSS最小}
+\begin{enumerate}
+  \item $E(\mathop \beta \limits^ \wedge) = {\left( {y  - X\mathop \beta \limits^ \wedge  } \right)^T}\left( {y  - X\mathop \beta \limits^ \wedge  } \right) = y^T y - 2 y^T X \mathop \beta \limits^ \wedge + {\mathop \beta \limits^ \wedge} ^T X ^T X \mathop \beta \limits^ \wedge$
+  \item $\frac{{\partial E\left( {\mathop \beta \limits^ \wedge  } \right)}}{{\partial \mathop \beta \limits^ \wedge  }} = 0$
+  \item $ X^T X \mathop \beta \limits^ \wedge  = X^T y $
+  \item $ \mathop \beta \limits^ \wedge = {\left( {{X^T}X} \right)^{ - 1}}{X^T}y $
+\end{enumerate}
+\end{block}
+\end{frame}
+
+\begin{frame}{MLE}
+\begin{enumerate}
+  \item ${y_i} = {\beta ^T}{x_i} + {e_i},{e_i} \sim N\left( {0,{\sigma ^2}} \right)$
+  \item ${y_i} \sim N\left( {{\beta ^T}{x_i},{\sigma ^2}} \right)$
+  \item $\mathop \beta \limits^ \wedge   \buildrel \Delta \over = \arg \mathop {\max }\limits_\beta  \log p\left( {D\left| \beta  \right.} \right)$
+ \item $l\left( \beta  \right) \buildrel \Delta \over = \log p\left( {D\left| \beta  \right.} \right) 
+ = \sum\limits_{i = 1}^n {\log p\left( {{y_i}\left| \beta  \right.} \right)}  
+ = \sum\limits_{i = 1}^n {\log \left[ {{{\left( {\frac{1}{{2\pi {\sigma ^2}}}} \right)}^{\frac{1}{2}}}\exp \left( { - \frac{1}{{2{\sigma ^2}}}{{\left( {{y_i} - {\beta ^T}{x_i}} \right)}^2}} \right)} \right]} 
+  =  - \frac{1}{{2{\sigma ^2}}}RSS - \frac{N}{2}\log \left( {2\pi {\sigma ^2}} \right)$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{平方和的定义}
+\begin{itemize}
+  \item[a、]总平方和 (Total Sum of Squares \ TSS):
+  \begin{center}
+    $TSS \buildrel \Delta \over = {\sum\limits_{i = 1}^n {\left( {{y_i} - \overline y } \right)} ^2},\overline y  = \frac{1}{n}\sum\limits_{i = 1}^n {{y_i}} $
+  \end{center}
+  \item[b、]解释平方和（Explained Sum of Squares \ ESS）:
+  \begin{center}
+    $ESS \buildrel \Delta \over = {\sum\limits_{i = 1}^n {\left( {{{\mathop y\limits^ \wedge  }_i} - \mathop {\overline y }\limits^ \wedge  } \right)} ^2},\overline {\mathop y\limits^ \wedge  }  = \frac{1}{n}\sum\limits_{i = 1}^n {\mathop {{y_i}}\limits^ \wedge  } $
+  \end{center}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{拟合优度}
+\begin{block}{判定系数的定义}
+${R^2} = \frac{{ESS}}{{TSS}}$
+\end{block}
+
+\begin{block}{判定系数的性质}
+\begin{itemize}
+  \item $0 \leq R^2 \leq 1$
+  \item $R^2$ 越接近1，拟合效果越好
+  \item $R^2$ 越接近0，拟合效果越差
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}{几何解释}
+
+\end{frame}
+
+\begin{frame}{增加惩罚项}
+\begin{block}{ridge regression}
+\begin{itemize}
+  \item $J\left( \beta  \right) = \frac{1}{n}RSS + \lambda \left\| \beta  \right\|_2^2$
+  \item ${\mathop \beta \limits^ \wedge  _{ridge}} = \mathop {\min \arg }\limits_\beta  J\left( \beta  \right)$
+  \item ${\mathop \beta \limits^ \wedge  _{ridge}} = {\left( {\lambda I + {X^T}X} \right)^{ - 1}}{X^T}y$
+\end{itemize}
+\end{block}
+
+\begin{block}{LASSO}
+\begin{itemize}
+  \item $J\left( \beta  \right) = \frac{1}{n}RSS + \lambda \left\| \beta  \right\|_2^1$
+\end{itemize}
+\end{block}
+\end{frame}
+
+\section{对数几率回归}
+\begin{frame}{定义}
+\begin{block}
+    $p\left( {y\left| {x,w} \right.} \right) = Ber\left( {y\left| {sigm\left( {{w^T}x} \right)} \right.} \right) = \left\{ \begin{array}{l}
+    sigm\left( {{w^T}x} \right),y = 1\\
+    1 - sigm\left( {{w^T}x} \right),y = 0
+    \end{array} \right.$
+\end{block}
+
+\begin{block}
+
+\end{block}
+\end{frame}
 
 \end{document} 
