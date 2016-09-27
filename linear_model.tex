@@ -13,6 +13,13 @@
 \useoutertheme{infolines}
 \useinnertheme{rectangles}
 \setmainfont{Arial}
+\AtBeginSection[]
+{
+  \begin{frame}
+      \frametitle{Table of Contents}
+      \tableofcontents[currentsection]
+  \end{frame}
+}
 
 \begin{document}
 \title[机器学习读书会报告] % (optional, only for long titles)
@@ -91,7 +98,7 @@
 {{e_{p - 1}}}
 \end{array}} \right)\]
 
-$\bf{y}=\bf{X\beta}+\bf{e}$
+\[\bf{y}=\bf{X\beta}+\bf{e}\]
 
 \end{frame}
 
@@ -100,8 +107,17 @@ $\bf{y}=\bf{X\beta}+\bf{e}$
 \begin{itemize}
   \item[(a)] 拟合值：$\mathop {{y_i}}\limits^ \wedge   = \mathop {{\beta _0}}\limits^ \wedge   + {x_{i1}}\mathop {{\beta _1}}\limits^ \wedge   \cdots  + {x_{i,p - 1}}{{\mathop \beta \limits^ \wedge}  _{p - 1}}$
   \item[(b)] 残差（residual）:${\varepsilon _i} = {y_i} - {{\mathop y\limits^ \wedge}  _i} = {y_i} - \mathop {{\beta _0}}\limits^ \wedge   - {x_{i1}}\mathop {{\beta _1}}\limits^ \wedge   \cdots  + {x_{i,p - 1}}{{\mathop \beta \limits^ \wedge }_{p - 1}}$
-  \item[(c)] 残差平方和（residual sum of squares \ RSS）:$RSS \left(\beta\right) = \sum\limits_{i=1}^{n}\varepsilon_i = \sum\limits_{i=1}^{n}\left(y_i - \mathop {{y_i}}\limits^ \wedge\right) = {{{\left( {\mathop y\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)}^T}\left( {\mathop y\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)}$
+  \item[(c)] 残差平方和（residual sum of squares \ RSS）\ $RSS\left( \beta  \right) = \sum\limits_{i = 1}^n {{\varepsilon _i}^2}  = \sum\limits_{i = 1}^n {{{\left( {{y_i} - \mathop {{y_i}}\limits^ \wedge  } \right)}^2}}  = {\left( {\mathop {{\rm{ }}y}\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)^T}\left( {\mathop {{\rm{ }}y}\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)$
 \end{itemize}
+\end{frame}
+
+\begin{frame}{残差示意图}
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{residuals.eps}
+  \caption{残差示意图}\label{2}
+\end{figure}
+
 \end{frame}
 
 \begin{frame}{参数求解}
@@ -120,10 +136,11 @@ $\bf{y}=\bf{X\beta}+\bf{e}$
   \item ${y_i} = {\beta ^T}{x_i} + {e_i},{e_i} \sim N\left( {0,{\sigma ^2}} \right)$
   \item ${y_i} \sim N\left( {{\beta ^T}{x_i},{\sigma ^2}} \right)$
   \item $\mathop \beta \limits^ \wedge   \buildrel \Delta \over = \arg \mathop {\max }\limits_\beta  \log p\left( {D\left| \beta  \right.} \right)$
+
  \item $l\left( \beta  \right) \buildrel \Delta \over = \log p\left( {D\left| \beta  \right.} \right)
- = \sum\limits_{i = 1}^n {\log p\left( {{y_i}\left| \beta  \right.} \right)}
- = \sum\limits_{i = 1}^n {\log \left[ {{{\left( {\frac{1}{{2\pi {\sigma ^2}}}} \right)}^{\frac{1}{2}}}\exp \left( { - \frac{1}{{2{\sigma ^2}}}{{\left( {{y_i} - {\beta ^T}{x_i}} \right)}^2}} \right)} \right]}
-  =  - \frac{1}{{2{\sigma ^2}}}RSS - \frac{N}{2}\log \left( {2\pi {\sigma ^2}} \right)$
+     = \sum\limits_{i = 1}^n {\log p\left( {{y_i}\left| \beta  \right.} \right)}
+     = \sum\limits_{i = 1}^n {\log \left[ {{{\left( {\frac{1}{{2\pi {\sigma ^2}}}} \right)}^{\frac{1}{2}}}\exp \left( { - \frac{1}{{2{\sigma ^2}}}{{\left( {{y_i} - {\beta ^T}{x_i}} \right)}^2}} \right)} \right]}
+      =  - \frac{1}{{2{\sigma ^2}}}RSS - \frac{N}{2}\log \left( {2\pi {\sigma ^2}} \right)$
 \end{enumerate}
 \end{frame}
 
@@ -135,15 +152,18 @@ $\bf{y}=\bf{X\beta}+\bf{e}$
   \end{center}
   \item[b、]解释平方和（Explained Sum of Squares \ ESS）:
   \begin{center}
-    $ESS \buildrel \Delta \over = {\sum\limits_{i = 1}^n {\left( {{{\mathop y\limits^ \wedge  }_i} - \mathop {\overline y }\limits^ \wedge  } \right)} ^2},\overline {\mathop y\limits^ \wedge  }  = \frac{1}{n}\sum\limits_{i = 1}^n {\mathop {{y_i}}\limits^ \wedge  } $
+    $ESS{\rm{ }} \buildrel \Delta \over = \sum\limits_{i = 1}^n {{{\left( {{{\mathop {{\rm{ }}y}\limits^ \wedge  }_i} - \overline {\mathop {{\rm{ }}y}\limits^ \wedge  } } \right)}^2}} ,\overline {\mathop {{\rm{ }}y}\limits^ \wedge  }  = \frac{1}{n}\sum\limits_{i = 1}^n {\mathop {{y_i}}\limits^ \wedge  }  $
   \end{center}
-  \item[Theorem] $TSS = ESS + RSS$
+\end{itemize}
+\\
+\begin{itemize}
+  \item \textcolor[rgb]{1.00,0.00,0.50}{\Large{TSS = ESS + RSS}}
 \end{itemize}
 \end{frame}
 
 \begin{frame}{拟合优度}
 \begin{block}{判定系数的定义}
-${R^2} = \frac{{ESS}}{{TSS}}$
+\[{R^2} = \frac{{ESS}}{{TSS}}\]
 \end{block}
 
 \begin{block}{判定系数的性质}
@@ -156,6 +176,13 @@ ${R^2} = \frac{{ESS}}{{TSS}}$
 \end{frame}
 
 \begin{frame}{几何解释}
+\[\mathop y\limits^ \wedge   = X\mathop \beta \limits^ \wedge   = X{\left( {{X^T}X} \right)^{ - 1}}{X^T}y\]
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{projection.eps}
+  \caption{$y$在$x_1 \ x_2$张成空间的投影}\label{1}
+\end{figure}
 
 \end{frame}
 
@@ -169,9 +196,7 @@ ${R^2} = \frac{{ESS}}{{TSS}}$
 \end{block}
 
 \begin{block}{LASSO}
-\begin{itemize}
-  \item $J\left( \beta  \right) = \frac{1}{n}RSS + \lambda \left\| \beta  \right\|_2^1$
-\end{itemize}
+  \[J\left( \beta  \right) = \frac{1}{n}RSS + \lambda \left\| \beta  \right\|_1\]
 \end{block}
 \end{frame}
 
@@ -185,14 +210,23 @@ ${R^2} = \frac{{ESS}}{{TSS}}$
     \[sigm\left( {{w^T}x} \right) = \frac{1}{{1 + {e^{{w^T}x}}}}\]
 \end{frame}
 
+\begin{frame}{sigmoid示意图}
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{sigmoid.eps}
+  \caption{sigmoid示意图}\label{3}
+\end{figure}
+
+\end{frame}
+
 \begin{frame}{MLE}
 \[{\mu _i} = sigm\left( {{w^T}{x_i}} \right) = \frac{1}{{1 + {e^{{w^T}{x_i}}}}}\]
 
 \begin{equation*}
 \begin{aligned} % requires amsmath; align* for no eq. number
-    NLL\left( w \right)
-     &=  - \sum\limits_{i = 1}^N {\log \left( {\mu _i^{{\rm I}\left( {{y_i} = 1} \right)} \times \left( {1 - \mu _i^{{\rm I}\left( {{y_i} = 0} \right)}} \right)} \right)} \\
-     & =  - \sum\limits_{i = 1}^N {\left[ {{y_i}\log {\mu _i} + \left( {1 - {y_i}} \right)\log \left( {1 - {\mu _i}} \right)} \right]}
+    NLL\left( w \right) 
+    & = - \sum\limits_{i = 1}^N {\log \left( {\mu _i^{{\rm{I}}\left( {{y_i} = 1} \right)} \times {{\left( {1 - {\mu _i}} \right)}^{{\rm{I}}\left( {{y_i} = 0} \right)}}} \right)} \\
+    & =  - \sum\limits_{i = 1}^N {\left[ {{y_i}\log {\mu _i} + \left( {1 - {y_i}} \right)\log \left( {1 - {\mu _i}} \right)} \right]}
 \end{aligned}
 \end{equation*}
 \end{frame}
@@ -209,16 +243,16 @@ ${R^2} = \frac{{ESS}}{{TSS}}$
      &  = {X^T}\left( {\mu  - y} \right)
 \end{aligned}
 \end{equation*}
-\[H = \frac{{{\partial ^2}NLL\left( w \right)}}{{\partial {w^2}}} = {X^T}SX,S \buildrel \Delta \over = diag\left( {{\mu _i}\left( {1 - {\mu _i}} \right)} \right)\]
+\[H = \frac{{{\partial ^2}NLL\left( w \right)}}{{\partial {w^2}}} = -{X^T}SX,S \buildrel \Delta \over = diag\left( {{\mu _i}\left( {1 - {\mu _i}} \right)} \right)\]
 \end{frame}
 
 \begin{frame}{Optimization}
     \begin{block}{Steepest descent}
-    ${\theta _{k + 1}} = {\theta _k} - {\eta _k}{g_k}$
+    \[{\theta _{k + 1}} = {\theta _k} - {\eta _k}{g_k}\]
     \end{block}
 
     \begin{block}{Newton's method}
-    ${\theta _{k + 1}} = {\theta _k} - {\eta _k}H_k^{ - 1}{g_k}$
+    \[{\theta _{k + 1}} = {\theta _k} - {\eta _k}H_k^{ - 1}{g_k}\]
     \end{block}
 \end{frame}
 
@@ -239,6 +273,15 @@ ${R^2} = \frac{{ESS}}{{TSS}}$
 \end{frame}
 
 \section{LDA}
+
+\begin{frame}{LDA示意图}
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{lda.eps}
+  \caption{LDA示意图}\label{4}
+\end{figure}
+
+\end{frame}
 
 \begin{frame}{LDA}
 \[J\left( w \right) = \frac{{{w^T}{S_B}w}}{{{w^T}{S_W}w}}\]
