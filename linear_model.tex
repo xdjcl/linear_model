@@ -41,7 +41,7 @@
     \begin{itemize}
       \item[a] 工资水平（每小时美元数）：用Y表示
       \item[b] 受教育程度（受教育年数）：用X表示
-      \item[c] 非可观测因素，如工作经验、天生素质、工作时间等其他因素
+      \item[c] 其他因素，如工作经验、天生素质、工作时间等其他因素
     \end{itemize}
   \end{block}
 \end{frame}
@@ -87,10 +87,10 @@
  \vdots & \vdots &{}& \vdots \\
 1&{{x_{11}}}& \cdots &{{x_{n,p - 1}}}
 \end{array}} \right)\left( {\begin{array}{*{20}{c}}
-{{\omega _0}}\\
-{{\omega _1}}\\
+{{\beta _0}}\\
+{{\beta _1}}\\
  \vdots \\
-{{\omega _{p - 1}}}
+{{\beta _{p - 1}}}
 \end{array}} \right) + \left( {\begin{array}{*{20}{c}}
 {{e_1}}\\
 {{e_2}}\\
@@ -107,7 +107,7 @@
 \begin{itemize}
   \item[(a)] 拟合值：$\mathop {{y_i}}\limits^ \wedge   = \mathop {{\beta _0}}\limits^ \wedge   + {x_{i1}}\mathop {{\beta _1}}\limits^ \wedge   \cdots  + {x_{i,p - 1}}{{\mathop \beta \limits^ \wedge}  _{p - 1}}$
   \item[(b)] 残差（residual）:${\varepsilon _i} = {y_i} - {{\mathop y\limits^ \wedge}  _i} = {y_i} - \mathop {{\beta _0}}\limits^ \wedge   - {x_{i1}}\mathop {{\beta _1}}\limits^ \wedge   \cdots  + {x_{i,p - 1}}{{\mathop \beta \limits^ \wedge }_{p - 1}}$
-  \item[(c)] 残差平方和（residual sum of squares \ RSS）\ $RSS\left( \beta  \right) = \sum\limits_{i = 1}^n {{\varepsilon _i}^2}  = \sum\limits_{i = 1}^n {{{\left( {{y_i} - \mathop {{y_i}}\limits^ \wedge  } \right)}^2}}  = {\left( {\mathop {{\rm{ }}y}\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)^T}\left( {\mathop {{\rm{ }}y}\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)$
+  \item[(c)] 残差平方和（residual sum of squares \ RSS）\ $RSS = \sum\limits_{i = 1}^n {{\varepsilon _i}^2}  = \sum\limits_{i = 1}^n {{{\left( {{y_i} - \mathop {{y_i}}\limits^ \wedge  } \right)}^2}}  = {\left( {\mathop {{\rm{ }}y}\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)^T}\left( {\mathop {{\rm{ }}y}\limits^ \wedge   - X\mathop \beta \limits^ \wedge  } \right)$
 \end{itemize}
 \end{frame}
 
