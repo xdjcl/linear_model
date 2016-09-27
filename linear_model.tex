@@ -1,6 +1,6 @@
 \documentclass[xetex,mathserif,serif]{beamer}
 \usepackage{xeCJK}
-
+\usepackage{amssymb,amsmath}
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{algorithmic,algorithm}
@@ -120,9 +120,9 @@ $\bf{y}=\bf{X\beta}+\bf{e}$
   \item ${y_i} = {\beta ^T}{x_i} + {e_i},{e_i} \sim N\left( {0,{\sigma ^2}} \right)$
   \item ${y_i} \sim N\left( {{\beta ^T}{x_i},{\sigma ^2}} \right)$
   \item $\mathop \beta \limits^ \wedge   \buildrel \Delta \over = \arg \mathop {\max }\limits_\beta  \log p\left( {D\left| \beta  \right.} \right)$
- \item $l\left( \beta  \right) \buildrel \Delta \over = \log p\left( {D\left| \beta  \right.} \right) 
- = \sum\limits_{i = 1}^n {\log p\left( {{y_i}\left| \beta  \right.} \right)}  
- = \sum\limits_{i = 1}^n {\log \left[ {{{\left( {\frac{1}{{2\pi {\sigma ^2}}}} \right)}^{\frac{1}{2}}}\exp \left( { - \frac{1}{{2{\sigma ^2}}}{{\left( {{y_i} - {\beta ^T}{x_i}} \right)}^2}} \right)} \right]} 
+ \item $l\left( \beta  \right) \buildrel \Delta \over = \log p\left( {D\left| \beta  \right.} \right)
+ = \sum\limits_{i = 1}^n {\log p\left( {{y_i}\left| \beta  \right.} \right)}
+ = \sum\limits_{i = 1}^n {\log \left[ {{{\left( {\frac{1}{{2\pi {\sigma ^2}}}} \right)}^{\frac{1}{2}}}\exp \left( { - \frac{1}{{2{\sigma ^2}}}{{\left( {{y_i} - {\beta ^T}{x_i}} \right)}^2}} \right)} \right]}
   =  - \frac{1}{{2{\sigma ^2}}}RSS - \frac{N}{2}\log \left( {2\pi {\sigma ^2}} \right)$
 \end{enumerate}
 \end{frame}
@@ -137,6 +137,7 @@ $\bf{y}=\bf{X\beta}+\bf{e}$
   \begin{center}
     $ESS \buildrel \Delta \over = {\sum\limits_{i = 1}^n {\left( {{{\mathop y\limits^ \wedge  }_i} - \mathop {\overline y }\limits^ \wedge  } \right)} ^2},\overline {\mathop y\limits^ \wedge  }  = \frac{1}{n}\sum\limits_{i = 1}^n {\mathop {{y_i}}\limits^ \wedge  } $
   \end{center}
+  \item[Theorem] $TSS = ESS + RSS$
 \end{itemize}
 \end{frame}
 
@@ -176,16 +177,91 @@ ${R^2} = \frac{{ESS}}{{TSS}}$
 
 \section{对数几率回归}
 \begin{frame}{定义}
-\begin{block}
-    $p\left( {y\left| {x,w} \right.} \right) = Ber\left( {y\left| {sigm\left( {{w^T}x} \right)} \right.} \right) = \left\{ \begin{array}{l}
-    sigm\left( {{w^T}x} \right),y = 1\\
-    1 - sigm\left( {{w^T}x} \right),y = 0
-    \end{array} \right.$
-\end{block}
+    \[p\left( {y\left| {x,w} \right.} \right) = Ber\left( {y\left| {sigm\left( {{w^T}x} \right)} \right.} \right) = \left\{ {\begin{array}{*{20}{l}}
+    {sigm\left( {{w^T}x} \right),y = 1}\\
+    {1 - sigm\left( {{w^T}x} \right),y = 0}
+    \end{array}} \right.\]
 
-\begin{block}
+    \[sigm\left( {{w^T}x} \right) = \frac{1}{{1 + {e^{{w^T}x}}}}\]
+\end{frame}
 
-\end{block}
+\begin{frame}{MLE}
+\[{\mu _i} = sigm\left( {{w^T}{x_i}} \right) = \frac{1}{{1 + {e^{{w^T}{x_i}}}}}\]
+
+\begin{equation*}
+\begin{aligned} % requires amsmath; align* for no eq. number
+    NLL\left( w \right)
+     &=  - \sum\limits_{i = 1}^N {\log \left( {\mu _i^{{\rm I}\left( {{y_i} = 1} \right)} \times \left( {1 - \mu _i^{{\rm I}\left( {{y_i} = 0} \right)}} \right)} \right)} \\
+     & =  - \sum\limits_{i = 1}^N {\left[ {{y_i}\log {\mu _i} + \left( {1 - {y_i}} \right)\log \left( {1 - {\mu _i}} \right)} \right]}
+\end{aligned}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{MLE}
+\[\frac{{\partial {\mu _i}}}{{\partial w}} =  - \frac{{{x_i}{e^{{w^T}{x_i}}}}}{{{{\left( {1 + {e^{{w^T}{x_i}}}} \right)}^2}}} =  - {x_i}{\mu _i}\left( {1 - {\mu _i}} \right)\]
+
+\begin{equation*}
+\begin{aligned} % requires amsmath; align* for no eq. number
+    \frac{{\partial NLL\left( w \right)}}{{\partial w}}
+    & = \sum\limits_{i = 1}^N {\frac{{\partial NLL\left( w \right)}}{{\partial {\mu _i}}}} \frac{{\partial {\mu _i}}}{{\partial w}} \\
+    & = \sum\limits_{i = 1}^N {\left( {\frac{{{y_i}}}{{{\mu _i}}} - \frac{{1 - {y_i}}}{{1 - {\mu _i}}}} \right){x_i}} {\mu _i}\left( {1 - {\mu _i}} \right)\\
+     &　= \sum\limits_{i = 1}^N {\left( {{x_i}{y_i} - {x_i}{\mu _i}} \right)} \\
+     &  = {X^T}\left( {\mu  - y} \right)
+\end{aligned}
+\end{equation*}
+\[H = \frac{{{\partial ^2}NLL\left( w \right)}}{{\partial {w^2}}} = {X^T}SX,S \buildrel \Delta \over = diag\left( {{\mu _i}\left( {1 - {\mu _i}} \right)} \right)\]
+\end{frame}
+
+\begin{frame}{Optimization}
+    \begin{block}{Steepest descent}
+    ${\theta _{k + 1}} = {\theta _k} - {\eta _k}{g_k}$
+    \end{block}
+
+    \begin{block}{Newton's method}
+    ${\theta _{k + 1}} = {\theta _k} - {\eta _k}H_k^{ - 1}{g_k}$
+    \end{block}
+\end{frame}
+
+\begin{frame}{softmax}
+    \[\left\{ {\left( {{x^{\left( 1 \right)}},{y^{\left( 1 \right)}}} \right),\left( {{x^{\left( 2 \right)}},{y^{\left( 2 \right)}}} \right), \ldots ,\left( {{x^{\left( n \right)}},{y^{\left( n \right)}}} \right)} \right\},{y^{\left( i \right)}} \in \left\{ {1,2, \ldots ,k} \right\}\]
+
+    \[\left[ {\begin{array}{*{20}{c}}
+    {p\left( {{y^{\left( i \right)}} = 1\left| {{x^{\left( i \right)}};\theta } \right.} \right)}\\
+    {p\left( {{y^{\left( i \right)}} = 2\left| {{x^{\left( i \right)}};\theta } \right.} \right)}\\
+     \vdots \\
+    {p\left( {{y^{\left( i \right)}} = k\left| {{x^{\left( i \right)}};\theta } \right.} \right)}
+    \end{array}} \right] = \frac{1}{{\sum\limits_{j = 1}^k {{e^{w_j^T{x^{\left( i \right)}}}}} }}\left[ {\begin{array}{*{20}{c}}
+    {{e^{w_1^T{x^{\left( i \right)}}}}}\\
+    {{e^{w_2^T{x^{\left( i \right)}}}}}\\
+     \vdots \\
+    {{e^{w_k^T{x^{\left( i \right)}}}}}
+    \end{array}} \right]\]
+\end{frame}
+
+\section{LDA}
+
+\begin{frame}{LDA}
+\[J\left( w \right) = \frac{{{w^T}{S_B}w}}{{{w^T}{S_W}w}}\]
+\begin{itemize}
+  \item between-class scatter matrix \[ S_B = (\mu_2 - \mu_1){(\mu_2 - \mu_1)}^T \]
+  \item within-class scatter matrix \[{S_W} = \sum\limits_{i:{y_i} = 1} {\left( {{x_i} - {\mu _1}} \right){{\left( {{x_i} - {\mu _1}} \right)}^T}}  + \sum\limits_{i:{y_i} = 2} {\left( {{x_i} - {\mu _2}} \right){{\left( {{x_i} - {\mu _2}} \right)}^T}} \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{求解}
+\begin{enumerate}
+  \item ${J^'}\left( w \right) = {w^T}{S_B}w - \lambda {w^T}{S_W}w,\lambda  > 0$
+  \item $\frac{{d{J^'}\left( w \right)}}{{dw}} = 0$
+  \item $\lambda {S_w}w = {S_B}w$
+  \item ${S_B}w = \left( {{\mu _2} - {\mu _1}} \right){\left( {{\mu _2} - {\mu _1}} \right)^T}w = \left( {{\mu _2} - {\mu _1}} \right)\left( {{m_2} - {m_1}} \right)$
+  \item $ w \propto S_w^{ - 1}\left( {{\mu _2} - {\mu _1}} \right)$
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\begin{center}
+  \Large {Q \& A}
+\end{center}
 \end{frame}
 
 \end{document} 

@@ -1,2 +1,4 @@
 \beamer@endinputifotherversion {3.36pt}
 \beamer@sectionintoc {1}{线性回归模型}{2}{0}{1}
+\beamer@sectionintoc {2}{对数几率回归}{12}{0}{2}
+\beamer@sectionintoc {3}{LDA}{17}{0}{3}
